@@ -198,5 +198,4 @@ root.bind('<Configure>', resizer)
 
 
 
-root.mainloop()
-
+root.mainloop() 
