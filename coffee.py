@@ -1,13 +1,13 @@
 from tkinter import *
-from tkinter import messagebox
+from tkinter import messagebox, simpledialog
 from PIL import ImageTk, Image
 
 
 def open_coffee_options():
     # Hide the main menu buttons
-    button1.destroy()
-    button2.destroy()
-    button3.destroy()
+    button1.forget()
+    button2.forget()
+    button3.forget()
     
     # Create a new frame for coffee options
     coffee_frame = Frame(root)
@@ -62,12 +62,19 @@ def open_coffee_options():
 
     root.bind('<Configure>', resized)
 
+    def add_sweetner(item):
+        amount = simpledialog.askinteger("Add Sweetner", "Enter the amount of sweetner (teaspoons):", parent=root)
+        if amount is not None:
+            messagebox.showinfo("Sweetner Added", f"You added {amount} teaspoons of sweetner to your {item}.")
+            root.deiconify()
+            coffee_frame.destroy()
+
     def on_click(event):
         # get clicked item
         item = event.widget.find_closest(event.x, event.y)[0]
         
         if "cuppaccino" in my_canvas2.gettags(item):
-            messagebox.showinfo("Cuppaccino Clicked", "You clicked on Cuppaccino!")
+            add_sweetner("Cuppaccino")
         elif "espresso" in my_canvas2.gettags(item):
             print("espresson clicked")
         elif "latte" in my_canvas2.gettags(item):
