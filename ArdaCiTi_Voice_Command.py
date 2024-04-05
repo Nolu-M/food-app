@@ -194,3 +194,154 @@ if __name__ == "__main__":
     root = Tk()
     app = CoffeeShopApp(root)
     app.run()
+
+
+
+
+
+
+
+
+
+
+
+if "hello" in command:
+    speak("Hello! How can I help you?")
+elif "black coffee" in command:
+    speak("Enjoy your coffee")
+elif "cappuccino" in command:
+            speak("Enjoy your cappuccino")
+elif "can i please get a cappuccino" in command:
+            speak("Enjoy your cappuccino")
+        elif "can i get a cappuccino" in command:
+            speak("Enjoy your cappuccino")
+        elif "expresso" in command:
+            speak("Enjoy your expresso")
+        elif "can i please get expresso" in command:
+            speak("Enjoy your expresso")
+        elif "expresso please" in command:
+            speak("Enjoy your expresso")
+        elif "mocha" in command:
+            speak("enjoy your mocha")
+        elif "machiato" in command:
+            speak("enjoy your macchiato")
+        elif "can i get a machiato" in command:
+            speak("enjoy your macchiato")
+        elif "can i please get a machiato" in command:
+            speak("enjoy your macchiato")
+        elif "americano" in command:
+            speak("enjoy your americano")
+        elif "caffe latte" in command:
+            speak("Enjoy your Latte")
+        elif "black tea" in command:
+            speak("Enjoy your tea")
+        elif "milk tea please" in command:
+            speak("Enjoy your tea")
+            
+        elif "can i have some coffee" in command:
+            speak("How do you want your coffee?")
+            
+            user_response = recognize_speech()
+            
+            if "black" in user_response:
+                speak("Enjoy your coffee")
+            elif "caffe latte" in user_response:
+                speak("enjoy your latte")
+            elif "make it latte" in user_response:
+                speak("enjoy your latte")
+            elif "expresso" in user_response:
+                speak("enjoy your expresso")
+            elif "mocha" in user_response:
+                speak("enjoy your mocha")
+            elif "machiato" in user_response:
+                speak("enjoy your macchiato")
+            elif "americano" in user_response:
+                speak("enjoy your americano")
+            elif "Cappucciono" in user_response:
+                speak("enjoy your cappucciono")
+            else:
+                speak("Sorry no such request available")
+            return True
+                
+        elif "coffee please" in command:
+            speak("How do you want your coffee?")
+            
+            user_input = recognize_speech()
+            
+            if "black" in user_input:
+                speak("Enjoy your coffee")
+            elif "caffe latte" in user_input:
+                speak("enjoy your latte")
+            elif "latte" in user_input:
+                speak("enjoy your latte")
+            elif "expresso" in user_input:
+                speak("enjoy your expresso")
+            elif "mocha" in user_input:
+                speak("enjoy your mocha")
+            elif "machiato" in user_input:
+                speak("enjoy your macchiato")
+            elif "americano" in user_input:
+                speak("enjoy your americano")
+            elif "Cappucciono" in user_input:
+                speak("enjoy your cappucciono")
+            else:
+                speak("Sorry no such request available")
+            return True
+                
+        elif "can i have some tea" in command:
+            speak("How do you want your tea?")
+            
+            user_speak = recognize_speech()
+            
+            if "rooibos" in user_speak:
+                speak("enjoy your tea")
+            elif "green tea" in user_speak:
+                speak("enjoy your green tea")
+            elif "perppermint" in user_speak:
+                speak("enjoy your tea")
+            elif "chamomile" in user_speak:
+                speak("enjoy your tea")
+            elif "five roses" in user_speak:
+                speak("enjoy your tea")
+            elif "cinnamon" in user_speak:
+                speak("enjoy your tea")
+            else:
+                speak("Sorry no such request available")
+            return True
+                
+        elif "tea please" in command:
+            speak("How do you want your tea?")
+            
+            user_talk = recognize_speech()
+            
+            if "rooibos" in user_talk:
+                speak("enjoy your tea")
+            elif "green tea" in user_talk:
+                speak("enjoy your green tea")
+            elif "perppermint" in user_talk:
+                speak("enjoy your tea")
+            elif "chamomile" in user_talk:
+                speak("enjoy your tea")
+            elif "five roses" in user_talk:
+                speak("enjoy your tea")
+            elif "cinnamon" in user_talk:
+                speak("enjoy your tea")
+            else:
+                speak("Sorry no such request available")
+            return True
+                
+        elif "Thank you" in command:
+            speak("Enjoy")
+        elif "exit the programme" in command:
+            speak("Enjoy")
+        elif "no nothing" in command:
+            speak("Enjoy")
+        elif "terminate" in command:
+            speak("Enjoy")
+        elif "no i'm good" in command:
+            speak("Enjoy")
+        elif "i'm good" in command:
+            speak("Enjoy") 
+        else:
+            speak("Sorry, I didn't understand that command.")
+        return True  
