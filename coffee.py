@@ -3,6 +3,8 @@ from tkinter import messagebox, simpledialog
 from PIL import ImageTk, Image
 import speech_recognition as sr
 import pyttsx3
+import pyaudio
+
 
 
 
