@@ -3,11 +3,11 @@ from tkinter import messagebox, simpledialog
 from PIL import ImageTk, Image
 
 
-def open_coffee_options():
+def open_coffee_options(root, button1, button2, button3):
     # Hide the main menu buttons
-    button1.forget()
-    button2.forget()
-    button3.forget()
+    button1.grid_forget()
+    button2.grid_forget()
+    button3.grid_forget()
     
     # Create a new frame for coffee options
     coffee_frame = Frame(root)
@@ -89,11 +89,17 @@ def open_coffee_options():
     my_canvas2.bind("<Button-1>", on_click)
 
 
-def open_tea_options():
+def open_tea_options(root, button1, button2, button3):
+    global tea_frame
+
+    if 'tea_frame' in globals():
+        tea_frame.destroy()
+        root.deiconify()
+        
     # Hide the main menu buttons
-    button1.destroy()
-    button2.destroy()
-    button3.destroy()
+    button1.grid_forget()
+    button2.grid_forget()
+    button3.grid_forget()
     
     # Create a new frame for coffee options
     tea_frame = Frame(root)
@@ -107,11 +113,16 @@ def open_tea_options():
     cinnamon = PhotoImage(file="images/cinnamon.png").subsample(3)
     chamomile = PhotoImage(file="images/chamomile.png").subsample(2)
     ceylon = PhotoImage(file="images/ceylon.png")
+
+   
     # create a canvas
     my_canvas3 = Canvas(tea_frame, width=1600, height=900)
     my_canvas3.pack(fill="both", expand=True)
 
     my_canvas3.create_image(0,0, image=tea_bg, anchor="nw")
+
+    
+
     
     # Add background image to the frame
     def resized(e):
@@ -141,23 +152,18 @@ def open_tea_options():
         my_canvas3.create_text(95, 710, text="Cinnamon", font=("Arial", 14), anchor="nw")
         my_canvas3.create_text(380, 710, text="Chamomile", font=("Arial", 14), anchor="nw")
         my_canvas3.create_text(670, 710, text="Ceylon", font=("Arial", 14), anchor="nw")
+        
 
     root.bind('<Configure>', resized)
 
-    def add_sweetener1(item):
-        amount = simpledialog.askinteger("Add Sweetener", "Enter the amount of sweetener (teaspoons):", parent=root)
-        if amount is not None:
-            messagebox.showinfo("Sweetener Added", f"You added {amount} teaspoons of sweetener to your {item}.")
-            root.deiconify()  # Show main window again
-            tea_frame.destroy()
-
+    
 
     def on_click(event):
         # get clicked item
         item = event.widget.find_closest(event.x, event.y)[0]
         
         if "rooibos" in my_canvas3.gettags(item):
-            add_sweetener1("rooibos")
+            print("Rooibos clicked")
         elif "peppermint" in my_canvas3.gettags(item):
             print("Peppermint clicked")
         elif "greentea" in my_canvas3.gettags(item):
@@ -170,47 +176,53 @@ def open_tea_options():
             print("Ceylon clicked")
 
     my_canvas3.bind("<Button-1>", on_click)
+    
+    def go_back():
+        root.deiconify()
+        tea_frame.destroy()
+    # Create a button to go back
+    back_button = Button(tea_frame, text="Back to Menu", bg="#8B3E2F", fg="white", pady=10, padx=30, command=go_back)
+    back_button_window = my_canvas3.create_window(50, 50, anchor="nw", window=back_button)
+
+def create_main_menu():
+    root = Tk()
+    root.geometry("1600x900")
 
 
+    # Define image
+    bg = PhotoImage(file="images/c-beans.png")
+
+    # Create a canvas
+    my_canvas = Canvas(root, width=740, height=538)
+    my_canvas.pack(fill="both", expand=True)
 
 
-root = Tk()
-root.geometry("1600x900")
+    my_canvas.create_image(0,0, image=bg, anchor="nw")
 
-# Define image
-bg = PhotoImage(file="images/c-beans.png")
-
-# Create a canvas
-my_canvas = Canvas(root, width=740, height=538)
-my_canvas.pack(fill="both", expand=True)
+    button1 = Button(text="Tea", bg="#8B3E2F", fg="white", pady=10, padx=30, command=lambda: open_tea_options(root, button1, button2, button3))
+    button2 = Button(text="Coffee", bg="#8B3E2F", fg="white", pady=10, padx=30, command=lambda:open_coffee_options(root, button1, button2, button3))
+    button3 = Button(text="Voice Command", bg="#8B3E2F", fg="white", pady=10, padx=30)
 
 
-my_canvas.create_image(0,0, image=bg, anchor="nw")
+    button1_window = my_canvas.create_window(200, 400, anchor="nw", window=button1)
+    button2_window = my_canvas.create_window(300, 400, anchor="nw", window=button2)
+    button3_window = my_canvas.create_window(420, 400, anchor="nw", window=button3)
 
-button1 = Button(text="Tea", bg="#8B3E2F", fg="white", pady=10, padx=30, command=open_tea_options)
-button2 = Button(text="Coffee", bg="#8B3E2F", fg="white", pady=10, padx=30, command=open_coffee_options)
-button3 = Button(text="Voice Command", bg="#8B3E2F", fg="white", pady=10, padx=30)
+    def resizer(e):
+        global bg1, resized_bg, new_bg
+        # Open the image
+        bg1 = Image.open("images/c-beans.png")
+        # resize the image
+        resized_bg = bg1.resize((1600, 900), Image.LANCZOS)
+        # Define image again
+        new_bg = ImageTk.PhotoImage(resized_bg)
+        # Add it back to the canvas
+        my_canvas.create_image(0,0, image=new_bg, anchor="nw")
+        # Read the text
+        my_canvas.create_text(400, 100, text="ArdaCiti Coffee Shop", font=("Segoe Script", 40))
+        my_canvas.create_text(400, 150, text="The Best In Town", font=("Segoe Script", 20) )
+    root.bind('<Configure>', resizer)  
 
+    root.mainloop()
 
-button1_window = my_canvas.create_window(200, 400, anchor="nw", window=button1)
-button2_window = my_canvas.create_window(300, 400, anchor="nw", window=button2)
-button3_window = my_canvas.create_window(420, 400, anchor="nw", window=button3)
-
-def resizer(e):
-    global bg1, resized_bg, new_bg
-    # Open the image
-    bg1 = Image.open("images/c-beans.png")
-    # resize the image
-    resized_bg = bg1.resize((1600, 900), Image.LANCZOS)
-    # Define image again
-    new_bg = ImageTk.PhotoImage(resized_bg)
-    # Add it back to the canvas
-    my_canvas.create_image(0,0, image=new_bg, anchor="nw")
-    # Read the text
-    my_canvas.create_text(400, 100, text="ArdaCiti Coffee Shop", font=("Segoe Script", 40))
-    my_canvas.create_text(400, 150, text="The Best In Town", font=("Segoe Script", 20) )
-root.bind('<Configure>', resizer)  
-
-
-
-root.mainloop() 
+create_main_menu() 
