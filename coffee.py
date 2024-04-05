@@ -4,6 +4,12 @@ from PIL import ImageTk, Image
 
 
 def open_coffee_options(root, button1, button2, button3):
+    global coffee_frame
+
+    if 'coffee_frame' in globals():
+        coffee_frame.destroy()
+        root.deiconify()
+
     # Hide the main menu buttons
     button1.grid_forget()
     button2.grid_forget()
@@ -87,6 +93,15 @@ def open_coffee_options(root, button1, button2, button3):
             print("Americano clicked")
 
     my_canvas2.bind("<Button-1>", on_click)
+
+    # Go back to main menu
+    def go_back():
+        root.deiconify()
+        coffee_frame.destroy()
+    # Create a button to go back
+    back_button = Button(coffee_frame, text="Back to Menu", bg="#8B3E2F", fg="white", pady=10, padx=30, command=go_back)
+    back_button_window = my_canvas2.create_window(300, 750, anchor="nw", window=back_button)
+
 
 
 def open_tea_options(root, button1, button2, button3):
@@ -182,8 +197,10 @@ def open_tea_options(root, button1, button2, button3):
         tea_frame.destroy()
     # Create a button to go back
     back_button = Button(tea_frame, text="Back to Menu", bg="#8B3E2F", fg="white", pady=10, padx=30, command=go_back)
-    back_button_window = my_canvas3.create_window(50, 50, anchor="nw", window=back_button)
+    back_button_window = my_canvas3.create_window(350, 760, anchor="nw", window=back_button)
 
+
+# main menu
 def create_main_menu():
     root = Tk()
     root.geometry("1600x900")
