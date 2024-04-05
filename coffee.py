@@ -73,7 +73,7 @@ def open_coffee_options(root, button1, button2, button3):
         if amount is not None:
             messagebox.showinfo("Sweetner Added", f"You added {amount} teaspoons of sweetner to your {item}.")
             root.deiconify()
-            coffee_frame.destroy()
+            #coffee_frame.destroy() commented the line out so that if someone wants another cup, they don't have to restart the whole process again.
 
     def on_click(event):
         # get clicked item
@@ -82,16 +82,15 @@ def open_coffee_options(root, button1, button2, button3):
         if "cuppaccino" in my_canvas2.gettags(item):
             add_sweetner("Cuppaccino")
         elif "espresso" in my_canvas2.gettags(item):
-            print("espresson clicked")
+            add_sweetner("Espresso")
         elif "latte" in my_canvas2.gettags(item):
-            print("Latte clicked")
+            add_sweetner("Latte")
         elif "macch" in my_canvas2.gettags(item):
-            print("Macchiato clicked")
+            add_sweetner("Macchiato")
         elif "mocha" in my_canvas2.gettags(item):
-            print("Mocha clicked")
+            add_sweetner("Mocha")
         elif 'ameri' in my_canvas2.gettags(item):
-            print("Americano clicked")
-
+            add_sweetner("Americano")
     my_canvas2.bind("<Button-1>", on_click)
 
     # Go back to main menu
@@ -171,24 +170,29 @@ def open_tea_options(root, button1, button2, button3):
 
     root.bind('<Configure>', resized)
 
-    
+    def add_sweetner(item):
+        amount = simpledialog.askinteger("Add Sweetner", "Enter the amount of sweetner (teaspoons):", parent=root)
+        if amount is not None:
+            messagebox.showinfo("Sweetner Added", f"You added {amount} teaspoons of sweetner to your {item}.")
+            root.deiconify()
+            #tea_frame.destroy() commented the line out so that if someone wants another cup, they don't have to restart the whole process again.
 
     def on_click(event):
         # get clicked item
         item = event.widget.find_closest(event.x, event.y)[0]
         
         if "rooibos" in my_canvas3.gettags(item):
-            print("Rooibos clicked")
+            add_sweetner("Rooibos")
         elif "peppermint" in my_canvas3.gettags(item):
-            print("Peppermint clicked")
+            add_sweetner("Peppermint")
         elif "greentea" in my_canvas3.gettags(item):
-            print("Greentea clicked")
+            add_sweetner("Greentea")
         elif "cinnamon" in my_canvas3.gettags(item):
-            print("Cinnamon clicked")
+            add_sweetner("Cinnamon")
         elif "chamomile" in my_canvas3.gettags(item):
-            print("Chamomile clicked")
+            add_sweetner("Chamomile")
         elif 'ceylon' in my_canvas3.gettags(item):
-            print("Ceylon clicked")
+            add_sweetner("Ceylon")
 
     my_canvas3.bind("<Button-1>", on_click)
     
