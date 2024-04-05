@@ -144,12 +144,20 @@ def open_tea_options():
 
     root.bind('<Configure>', resized)
 
+    def add_sweetener1(item):
+        amount = simpledialog.askinteger("Add Sweetener", "Enter the amount of sweetener (teaspoons):", parent=root)
+        if amount is not None:
+            messagebox.showinfo("Sweetener Added", f"You added {amount} teaspoons of sweetener to your {item}.")
+            root.deiconify()  # Show main window again
+            tea_frame.destroy()
+
+
     def on_click(event):
         # get clicked item
         item = event.widget.find_closest(event.x, event.y)[0]
         
         if "rooibos" in my_canvas3.gettags(item):
-            messagebox.showinfo("Rooibos Clicked", "You clicked on rooibos!")
+            add_sweetener1("rooibos")
         elif "peppermint" in my_canvas3.gettags(item):
             print("Peppermint clicked")
         elif "greentea" in my_canvas3.gettags(item):
