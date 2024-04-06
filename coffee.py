@@ -396,6 +396,7 @@ def create_main_menu():
 
     root = Tk()
     root.geometry("1600x900")
+    root.iconbitmap('images/coffee_icon.ico')
 
     
 
@@ -410,7 +411,7 @@ def create_main_menu():
     my_canvas.create_image(0,0, image=bg, anchor="nw")
 
     
-
+    # Buttons leading to the different frames and the voice recognition
     button1 = Button(text="Tea", bg="#8B3E2F", fg="white", pady=10, padx=30, command=lambda: open_tea_options(root, button1, button2, button3))
     button2 = Button(text="Coffee", bg="#8B3E2F", fg="white", pady=10, padx=30, command=lambda:open_coffee_options(root, button1, button2, button3))
     button3 = Button(text="Voice Command", bg="#8B3E2F", fg="white", pady=10, padx=30, command=on_click1)
@@ -431,8 +432,8 @@ def create_main_menu():
         # Add it back to the canvas
         my_canvas.create_image(0,0, image=new_bg, anchor="nw")
         # Read the text
-        my_canvas.create_text(400, 100, text="ArdaCiti Coffee Shop", font=("Segoe Script", 40))
-        my_canvas.create_text(400, 150, text="The Best In Town", font=("Segoe Script", 20) )
+        my_canvas.create_text(400, 100, text="ArdaCiti Coffee Machine", font=("Segoe Script", 40))
+        my_canvas.create_text(400, 150, text="Where Coffee Meets Tea, Harmony in Every Cup", font=("Segoe Script", 20) )
     root.bind('<Configure>', resizer)  
 
     root.mainloop()
