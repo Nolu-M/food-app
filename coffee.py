@@ -4,6 +4,7 @@ from PIL import ImageTk, Image
 import speech_recognition as sr
 import pyttsx3
 import pyaudio
+import tkinter as tk
 
 
 
@@ -73,29 +74,147 @@ def open_coffee_options(root, button1, button2, button3):
 
     root.bind('<Configure>', resized)
 
-    def add_sweetner(item):
-        amount = simpledialog.askinteger("Add Sweetner", "Enter the amount of sweetner (teaspoons):", parent=root)
-        if amount is not None:
-            messagebox.showinfo("Sweetner Added", f"You added {amount} teaspoons of sweetner to your {item}.")
-            root.deiconify()
-            #coffee_frame.destroy() commented the line out so that if someone wants another cup, they don't have to restart the whole process again.
+
+
+    def customize_coffee(coffee_type):
+        # Create a pop-up window
+        popup = tk.Toplevel(root)
+        popup.title("Customize Coffee")
+
+        global sugar_level, milk_level, brew_level  # Declare variables as global
+
+        sugar_level = 0
+        milk_level = 0
+        cup_size = "Small"  # Default cup size
+        brew_level = 0
+
+        
+        def increment_brew():
+            global brew_level
+            brew_level += 1
+            brew_label.config(text=f" Brew Level: {brew_level}")
+
+        def decrement_brew():
+            global brew_level
+            if brew_level > 0:
+                brew_level -= 1
+                brew_label.config(text=f" Brew Level: {brew_level}")
+
+        def increment_sugar():
+            global sugar_level
+            sugar_level += 1
+            sugar_label.config(text=f" Sugar Level: {sugar_level}")
+
+        def decrement_sugar():
+            global sugar_level
+            if sugar_level > 0:
+                sugar_level -= 1
+                sugar_label.config(text=f" Sugar Level: {sugar_level}")
+
+        def increment_milk():
+            global milk_level
+            milk_level += 1
+            milk_label.config(text=f" Milk Level: {milk_level}")
+
+        def decrement_milk():
+            global milk_level
+            if milk_level > 0:
+                milk_level -= 1
+                milk_label.config(text=f" Milk Level: {milk_level}")
+
+        def update_cup_size(size):
+            global cup_size
+            cup_size = size
+            cup_label.config(text=f"Cup Size: {cup_size}")
+
+        def confirm_order():
+            # This function should handle the confirmation of the order
+            # For now, let's just print the chosen options
+            print("Sugar Level:", sugar_level)
+            print("Milk Level:", milk_level)
+            print("Cup Size:", cup_size)
+            print("Brew Level:", brew_level)
+            popup.destroy()  # Close the popup window
+
+        sugar_frame = tk.Frame(popup)#, bg="white")
+        sugar_frame.grid(row=0, column=0, padx=10, pady=10)
+
+        sugar_label = tk.Label(sugar_frame, text="Sugar Level:")
+        sugar_label.grid(row=0, column=0, sticky="w", padx=5, pady=5)
+
+        sugar_increment_button = tk.Button(sugar_frame, text="+", command=increment_sugar)
+        sugar_increment_button.grid(row=0, column=1, padx=5, pady=5)
+
+        sugar_decrement_button = tk.Button(sugar_frame, text="-", command=decrement_sugar)
+        sugar_decrement_button.grid(row=0, column=2, padx=5, pady=5)
+
+        # Milk section
+        milk_frame = tk.Frame(popup)
+        milk_frame.grid(row=1, column=0, padx=10, pady=10)
+
+        milk_label = tk.Label(milk_frame, text="Milk Level:")
+        milk_label.grid(row=0, column=0, sticky="w", padx=5, pady=5)
+
+        milk_increment_button = tk.Button(milk_frame, text="+", command=increment_milk)
+        milk_increment_button.grid(row=0, column=1, padx=5, pady=5)
+
+        milk_decrement_button = tk.Button(milk_frame, text="-", command=decrement_milk)
+        milk_decrement_button.grid(row=0, column=2, padx=5, pady=5)
+
+        # Cup size section
+        cup_frame = tk.Frame(popup)
+        cup_frame.grid(row=2, column=0, padx=10, pady=10)
+
+        cup_label = tk.Label(cup_frame, text="Cup Size:")
+        cup_label.grid(row=0, column=0, sticky="w", padx=5, pady=5)
+
+        def update_cup_label(size):
+            cup_label.config(text=f"Cup Size: {size}")
+
+        small_button = tk.Button(cup_frame, text="Small", command=lambda: (update_cup_size("Small"), update_cup_label("Small")))
+        small_button.grid(row=0, column=1, padx=5, pady=5)
+
+        medium_button = tk.Button(cup_frame, text="Medium", command=lambda: (update_cup_size("Medium"), update_cup_label("Medium")))
+        medium_button.grid(row=0, column=2, padx=5, pady=5)
+
+        large_button = tk.Button(cup_frame, text="Large", command=lambda: (update_cup_size("Large"), update_cup_label("Large")))
+        large_button.grid(row=0, column=3, padx=5, pady=5)
+
+        # Brew level section
+        brew_frame = tk.Frame(popup)
+        brew_frame.grid(row=3, column=0, padx=10, pady=10)
+
+        brew_label = tk.Label(brew_frame, text="Brew Level:")
+        brew_label.grid(row=0, column=0, sticky="w", padx=5, pady=5)
+
+        brew_increment_button = tk.Button(brew_frame, text="+", command=increment_brew)
+        brew_increment_button.grid(row=0, column=1, padx=5, pady=5)
+
+        brew_decrement_button = tk.Button(brew_frame, text="-", command=decrement_brew)
+        brew_decrement_button.grid(row=0, column=2, padx=5, pady=5)
+
+        confirm_button = tk.Button(popup, text="Confirm", command=confirm_order)
+        confirm_button.grid(row=4, column=0, padx=10, pady=10)
+
+
+
 
     def on_click(event):
         # get clicked item
         item = event.widget.find_closest(event.x, event.y)[0]
         
         if "cuppaccino" in my_canvas2.gettags(item):
-            add_sweetner("Cuppaccino")
+            customize_coffee("Cuppaccino")
         elif "espresso" in my_canvas2.gettags(item):
-            add_sweetner("Espresso")
+            customize_coffee("Espresso")
         elif "latte" in my_canvas2.gettags(item):
-            add_sweetner("Latte")
+            customize_coffee("Latte")
         elif "macch" in my_canvas2.gettags(item):
-            add_sweetner("Macchiato")
+            customize_coffee("Macchiato")
         elif "mocha" in my_canvas2.gettags(item):
-            add_sweetner("Mocha")
+            customize_coffee("Mocha")
         elif 'ameri' in my_canvas2.gettags(item):
-            add_sweetner("Americano")
+            customize_coffee("Americano")
     my_canvas2.bind("<Button-1>", on_click)
 
     # Go back to main menu
@@ -394,11 +513,11 @@ def create_main_menu():
                 print("Error:", e)
                 speak("Sorry, there was an error processing your request.")
 
+
     root = Tk()
     root.geometry("1600x900")
     root.iconbitmap('images/coffee_icon.ico')
-
-    
+    root.title("ArdaCiTi Coffee - Tea Cafe`")
 
     # Define image
     bg = PhotoImage(file="images/c-beans.png")
