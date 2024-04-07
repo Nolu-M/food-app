@@ -9,6 +9,7 @@ import tkinter as tk
 
 
 
+
 def open_coffee_options(root, button1, button2, button3):
     global coffee_frame
 
@@ -81,25 +82,14 @@ def open_coffee_options(root, button1, button2, button3):
         popup = tk.Toplevel(root)
         popup.title("Customize Coffee")
 
-        global sugar_level, milk_level, brew_level  # Declare variables as global
+        global sugar_level, milk_level # Declare variables as global
 
         sugar_level = 0
         milk_level = 0
         cup_size = "Small"  # Default cup size
-        brew_level = 0
+
 
         
-        def increment_brew():
-            global brew_level
-            brew_level += 1
-            brew_label.config(text=f" Brew Level: {brew_level}")
-
-        def decrement_brew():
-            global brew_level
-            if brew_level > 0:
-                brew_level -= 1
-                brew_label.config(text=f" Brew Level: {brew_level}")
-
         def increment_sugar():
             global sugar_level
             sugar_level += 1
@@ -133,7 +123,7 @@ def open_coffee_options(root, button1, button2, button3):
             print("Sugar Level:", sugar_level)
             print("Milk Level:", milk_level)
             print("Cup Size:", cup_size)
-            print("Brew Level:", brew_level)
+
             popup.destroy()  # Close the popup window
 
         sugar_frame = tk.Frame(popup)#, bg="white")
@@ -180,23 +170,21 @@ def open_coffee_options(root, button1, button2, button3):
         large_button = tk.Button(cup_frame, text="Large", command=lambda: (update_cup_size("Large"), update_cup_label("Large")))
         large_button.grid(row=0, column=3, padx=5, pady=5)
 
-        # Brew level section
-        brew_frame = tk.Frame(popup)
-        brew_frame.grid(row=3, column=0, padx=10, pady=10)
+        recognizer = sr.Recognizer()
+        engine = pyttsx3.init()
 
-        brew_label = tk.Label(brew_frame, text="Brew Level:")
-        brew_label.grid(row=0, column=0, sticky="w", padx=5, pady=5)
+        def speak(text):
+            engine.say(text)
+            engine.runAndWait()
 
-        brew_increment_button = tk.Button(brew_frame, text="+", command=increment_brew)
-        brew_increment_button.grid(row=0, column=1, padx=5, pady=5)
+        def confirm_order(coffee_type):
+            speak(f"Enjoy your {coffee_type}")
+            popup.destroy()
+            coffee_frame.destroy()
 
-        brew_decrement_button = tk.Button(brew_frame, text="-", command=decrement_brew)
-        brew_decrement_button.grid(row=0, column=2, padx=5, pady=5)
 
-        confirm_button = tk.Button(popup, text="Confirm", command=confirm_order)
+        confirm_button = tk.Button(popup, text="Confirm", command=lambda: confirm_order(coffee_type))
         confirm_button.grid(row=4, column=0, padx=10, pady=10)
-
-
 
 
     def on_click(event):
@@ -274,7 +262,7 @@ def open_tea_options(root, button1, button2, button3):
         # Add it back to the canvas
         my_canvas3.create_image(0,0, image=new_tea_bg, anchor="nw")
         # Read the text
-        my_canvas3.create_text(400, 100, text="ArdaCiti Coffee Shop", font=("Segoe Script", 40))
+        my_canvas3.create_text(400, 100, text="ArdaCiti Cafe", font=("Segoe Script", 40))
         my_canvas3.create_text(400, 150, text="The Best In Town", font=("Segoe Script", 20))
         # Add images
         my_canvas3.create_image(50,300, image=rooibos, anchor="nw", tags="rooibos")
