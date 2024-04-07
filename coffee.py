@@ -8,8 +8,6 @@ import tkinter as tk
 
 
 
-
-
 def open_coffee_options(root, button1, button2, button3):
     global coffee_frame
 
@@ -37,12 +35,10 @@ def open_coffee_options(root, button1, button2, button3):
 
 
     # create a canvas
-    my_canvas2 = Canvas(coffee_frame, width=1600, height=900)
+    my_canvas2 = Canvas(coffee_frame, width=1366, height=768)
     my_canvas2.pack(fill="both", expand=True)
 
     my_canvas2.create_image(0,0, image=coffee_bg, anchor="nw")
-
-
     
     # Add background image to the frame
     def resized(e):
@@ -56,23 +52,22 @@ def open_coffee_options(root, button1, button2, button3):
         # Add it back to the canvas
         my_canvas2.create_image(0,0, image=new_coffee_bg, anchor="nw")
         # Read the text
-        my_canvas2.create_text(400, 100, text="ArdaCiti Coffee Shop", font=("Segoe Script", 40))
-        my_canvas2.create_text(400, 150, text="The Best In Town", font=("Segoe Script", 20))
+        my_canvas2.create_text(400, 100, text="ArdaCiti Cafe", font=("Segoe Script", 40))
+        my_canvas2.create_text(400, 150, text="Where Coffee Meets Tea, Harmony in Every Cup", font=("Segoe Script", 20))
         # Add coffee options
-        my_canvas2.create_image(50,300, image=cuppaccino, anchor="nw", tags="cuppaccino")
-        my_canvas2.create_image(300,300, image=espresso, anchor="nw", tags="espresso")
-        my_canvas2.create_image(600,265, image=latte, anchor="nw", tags="latte")
-        my_canvas2.create_image(-25,550, image=macch, anchor="nw", tags="macch")
-        my_canvas2.create_image(330,550, image=mocha, anchor="nw", tags="mocha")
-        my_canvas2.create_image(550,550, image=ameri, anchor="nw", tags="ameri")
+        my_canvas2.create_image(50,250, image=cuppaccino, anchor="nw", tags="cuppaccino")
+        my_canvas2.create_image(300,250, image=espresso, anchor="nw", tags="espresso")
+        my_canvas2.create_image(600,205, image=latte, anchor="nw", tags="latte")
+        my_canvas2.create_image(-25,500, image=macch, anchor="nw", tags="macch")
+        my_canvas2.create_image(330,500, image=mocha, anchor="nw", tags="mocha")
+        my_canvas2.create_image(550,500, image=ameri, anchor="nw", tags="ameri")
         # Add text under each image
-        my_canvas2.create_text(70, 480, text="Cuppaccino", font=("Arial", 14), anchor="nw")
-        my_canvas2.create_text(350, 480, text="Espresso", font=("Arial", 14), anchor="nw")
-        my_canvas2.create_text(650, 480, text="Latte", font=("Arial", 14), anchor="nw")
-        my_canvas2.create_text(90, 700, text="Macchiato", font=("Arial", 14), anchor="nw")
-        my_canvas2.create_text(360, 700, text="Mocha", font=("Arial", 14), anchor="nw")
-        my_canvas2.create_text(635, 700, text="Americano", font=("Arial", 14), anchor="nw")
-
+        my_canvas2.create_text(70, 430, text="Cuppaccino", font=("Arial", 14), anchor="nw")
+        my_canvas2.create_text(350, 430, text="Espresso", font=("Arial", 14), anchor="nw")
+        my_canvas2.create_text(650, 430, text="Latte", font=("Arial", 14), anchor="nw")
+        my_canvas2.create_text(90, 640, text="Macchiato", font=("Arial", 14), anchor="nw")
+        my_canvas2.create_text(360, 640, text="Mocha", font=("Arial", 14), anchor="nw")
+        my_canvas2.create_text(635, 640, text="Americano", font=("Arial", 14), anchor="nw")
     root.bind('<Configure>', resized)
 
 
@@ -182,7 +177,6 @@ def open_coffee_options(root, button1, button2, button3):
             popup.destroy()
             coffee_frame.destroy()
 
-
         confirm_button = tk.Button(popup, text="Confirm", command=lambda: confirm_order(coffee_type))
         confirm_button.grid(row=4, column=0, padx=10, pady=10)
 
@@ -211,7 +205,7 @@ def open_coffee_options(root, button1, button2, button3):
         coffee_frame.destroy()
     # Create a button to go back
     back_button = Button(coffee_frame, text="Back to Menu", bg="#8B3E2F", fg="white", pady=10, padx=30, command=go_back)
-    back_button_window = my_canvas2.create_window(300, 750, anchor="nw", window=back_button)
+    back_button_window = my_canvas2.create_window(320, 680, anchor="nw", window=back_button)
 
 
 
@@ -242,14 +236,12 @@ def open_tea_options(root, button1, button2, button3):
 
    
     # create a canvas
-    my_canvas3 = Canvas(tea_frame, width=1600, height=900)
+    my_canvas3 = Canvas(tea_frame, width=1366, height=768)
     my_canvas3.pack(fill="both", expand=True)
+    
 
     my_canvas3.create_image(0,0, image=tea_bg, anchor="nw")
 
-    
-
-    
     # Add background image to the frame
     def resized(e):
         global tea_bg, resized_tea_bg, new_tea_bg
@@ -263,49 +255,147 @@ def open_tea_options(root, button1, button2, button3):
         my_canvas3.create_image(0,0, image=new_tea_bg, anchor="nw")
         # Read the text
         my_canvas3.create_text(400, 100, text="ArdaCiti Cafe", font=("Segoe Script", 40))
-        my_canvas3.create_text(400, 150, text="The Best In Town", font=("Segoe Script", 20))
+        my_canvas3.create_text(400, 150, text="Where Coffee Meets Tea, Harmony in Every Cup", font=("Segoe Script", 20))
         # Add images
-        my_canvas3.create_image(50,300, image=rooibos, anchor="nw", tags="rooibos")
-        my_canvas3.create_image(350,300, image=peppermint, anchor="nw", tags="peppermint")
-        my_canvas3.create_image(600,300, image=greentea, anchor="nw", tags="greentea")
-        my_canvas3.create_image(60,550, image=cinnamon, anchor="nw", tags="cinnamon")
-        my_canvas3.create_image(240,550, image=chamomile, anchor="nw", tags="chamomile")
-        my_canvas3.create_image(570,500, image=ceylon, anchor="nw", tags="ceylon")
+        my_canvas3.create_image(50,250, image=rooibos, anchor="nw", tags="rooibos")
+        my_canvas3.create_image(350,250, image=peppermint, anchor="nw", tags="peppermint")
+        my_canvas3.create_image(600,250, image=greentea, anchor="nw", tags="greentea")
+        my_canvas3.create_image(60,480, image=cinnamon, anchor="nw", tags="cinnamon")
+        my_canvas3.create_image(240,480, image=chamomile, anchor="nw", tags="chamomile")
+        my_canvas3.create_image(570,430, image=ceylon, anchor="nw", tags="ceylon")
         # Add text under each image
-        my_canvas3.create_text(100, 480, text="Rooibos", font=("Arial", 14), anchor="nw")
-        my_canvas3.create_text(370, 480, text="Peppermint", font=("Arial", 14), anchor="nw")
-        my_canvas3.create_text(635, 480, text="Green Tea", font=("Arial", 14), anchor="nw")
-        my_canvas3.create_text(95, 710, text="Cinnamon", font=("Arial", 14), anchor="nw")
-        my_canvas3.create_text(380, 710, text="Chamomile", font=("Arial", 14), anchor="nw")
-        my_canvas3.create_text(670, 710, text="Ceylon", font=("Arial", 14), anchor="nw")
-        
-
+        my_canvas3.create_text(100, 410, text="Rooibos", font=("Arial", 14), anchor="nw")
+        my_canvas3.create_text(370, 410, text="Peppermint", font=("Arial", 14), anchor="nw")
+        my_canvas3.create_text(635, 410, text="Green Tea", font=("Arial", 14), anchor="nw")
+        my_canvas3.create_text(95, 640, text="Cinnamon", font=("Arial", 14), anchor="nw")
+        my_canvas3.create_text(380, 640, text="Chamomile", font=("Arial", 14), anchor="nw")
+        my_canvas3.create_text(670, 640, text="Ceylon", font=("Arial", 14), anchor="nw")
     root.bind('<Configure>', resized)
 
-    def add_sweetner(item):
-        amount = simpledialog.askinteger("Add Sweetner", "Enter the amount of sweetner (teaspoons):", parent=root)
-        if amount is not None:
-            messagebox.showinfo("Sweetner Added", f"You added {amount} teaspoons of sweetner to your {item}.")
-            root.deiconify()
-            #tea_frame.destroy() commented the line out so that if someone wants another cup, they don't have to restart the whole process again.
+    # Customizing the tea pop-up
+    def customize_tea(tea_type):
+        # Create a pop-up window
+        popup = tk.Toplevel(root)
+        popup.title("Customize Coffee")
+
+        global sugar_level, milk_level # Declare variables as global
+
+        sugar_level = 0
+        milk_level = 0
+        cup_size = "Small"  # Default cup size
+
+        def increment_sugar():
+            global sugar_level
+            sugar_level += 1
+            sugar_label.config(text=f" Sugar Level: {sugar_level}")
+
+        def decrement_sugar():
+            global sugar_level
+            if sugar_level > 0:
+                sugar_level -= 1
+                sugar_label.config(text=f" Sugar Level: {sugar_level}")
+
+        def increment_milk():
+            global milk_level
+            milk_level += 1
+            milk_label.config(text=f" Milk Level: {milk_level}")
+
+        def decrement_milk():
+            global milk_level
+            if milk_level > 0:
+                milk_level -= 1
+                milk_label.config(text=f" Milk Level: {milk_level}")
+
+        def update_cup_size(size):
+            global cup_size
+            cup_size = size
+            cup_label.config(text=f"Cup Size: {cup_size}")
+
+        def confirm_order():
+            # This function should handle the confirmation of the order
+            # For now, let's just print the chosen options
+            print("Sugar Level:", sugar_level)
+            print("Milk Level:", milk_level)
+            print("Cup Size:", cup_size)
+
+            popup.destroy()  # Close the popup window
+
+        sugar_frame = tk.Frame(popup)#, bg="white")
+        sugar_frame.grid(row=0, column=0, padx=10, pady=10)
+
+        sugar_label = tk.Label(sugar_frame, text="Sugar Level:")
+        sugar_label.grid(row=0, column=0, sticky="w", padx=5, pady=5)
+
+        sugar_increment_button = tk.Button(sugar_frame, text="+", command=increment_sugar)
+        sugar_increment_button.grid(row=0, column=1, padx=5, pady=5)
+
+        sugar_decrement_button = tk.Button(sugar_frame, text="-", command=decrement_sugar)
+        sugar_decrement_button.grid(row=0, column=2, padx=5, pady=5)
+
+        # Milk section
+        milk_frame = tk.Frame(popup)
+        milk_frame.grid(row=1, column=0, padx=10, pady=10)
+
+        milk_label = tk.Label(milk_frame, text="Milk Level:")
+        milk_label.grid(row=0, column=0, sticky="w", padx=5, pady=5)
+
+        milk_increment_button = tk.Button(milk_frame, text="+", command=increment_milk)
+        milk_increment_button.grid(row=0, column=1, padx=5, pady=5)
+
+        milk_decrement_button = tk.Button(milk_frame, text="-", command=decrement_milk)
+        milk_decrement_button.grid(row=0, column=2, padx=5, pady=5)
+
+        # Cup size section
+        cup_frame = tk.Frame(popup)
+        cup_frame.grid(row=2, column=0, padx=10, pady=10)
+
+        cup_label = tk.Label(cup_frame, text="Cup Size:")
+        cup_label.grid(row=0, column=0, sticky="w", padx=5, pady=5)
+
+        def update_cup_label(size):
+            cup_label.config(text=f"Cup Size: {size}")
+
+        small_button = tk.Button(cup_frame, text="Small", command=lambda: (update_cup_size("Small"), update_cup_label("Small")))
+        small_button.grid(row=0, column=1, padx=5, pady=5)
+
+        medium_button = tk.Button(cup_frame, text="Medium", command=lambda: (update_cup_size("Medium"), update_cup_label("Medium")))
+        medium_button.grid(row=0, column=2, padx=5, pady=5)
+
+        large_button = tk.Button(cup_frame, text="Large", command=lambda: (update_cup_size("Large"), update_cup_label("Large")))
+        large_button.grid(row=0, column=3, padx=5, pady=5)
+
+        recognizer = sr.Recognizer()
+        engine = pyttsx3.init()
+
+        def speak(text):
+            engine.say(text)
+            engine.runAndWait()
+
+        def confirm_order(tea_type):
+            speak(f"Enjoy your {tea_type} tea")
+            popup.destroy()
+            tea_frame.destroy()
+
+
+        confirm_button = tk.Button(popup, text="Confirm", command=lambda: confirm_order(tea_type))
+        confirm_button.grid(row=4, column=0, padx=10, pady=10)
 
     def on_click(event):
         # get clicked item
         item = event.widget.find_closest(event.x, event.y)[0]
         
         if "rooibos" in my_canvas3.gettags(item):
-            add_sweetner("Rooibos")
+            customize_tea("Rooibos")
         elif "peppermint" in my_canvas3.gettags(item):
-            add_sweetner("Peppermint")
+            customize_tea("Peppermint")
         elif "greentea" in my_canvas3.gettags(item):
-            add_sweetner("Greentea")
+            customize_tea("Greentea")
         elif "cinnamon" in my_canvas3.gettags(item):
-            add_sweetner("Cinnamon")
+            customize_tea("Cinnamon")
         elif "chamomile" in my_canvas3.gettags(item):
-            add_sweetner("Chamomile")
+            customize_tea("Chamomile")
         elif 'ceylon' in my_canvas3.gettags(item):
-            add_sweetner("Ceylon")
-
+            customize_tea("Ceylon")
     my_canvas3.bind("<Button-1>", on_click)
     
     def go_back():
@@ -313,11 +403,10 @@ def open_tea_options(root, button1, button2, button3):
         tea_frame.destroy()
     # Create a button to go back
     back_button = Button(tea_frame, text="Back to Menu", bg="#8B3E2F", fg="white", pady=10, padx=30, command=go_back)
-    back_button_window = my_canvas3.create_window(350, 760, anchor="nw", window=back_button)
+    back_button_window = my_canvas3.create_window(360, 690, anchor="nw", window=back_button)
 
 # main menu
 def create_main_menu():
-    
 # Voice recognition
     recognizer = sr.Recognizer()
     engine = pyttsx3.init()
@@ -505,7 +594,7 @@ def create_main_menu():
     root = Tk()
     root.geometry("1600x900")
     root.iconbitmap('images/coffee_icon.ico')
-    root.title("ArdaCiTi Coffee - Tea Cafe`")
+    root.title("ArdaCiTi Cafe")
 
     # Define image
     bg = PhotoImage(file="images/c-beans.png")
@@ -539,7 +628,7 @@ def create_main_menu():
         # Add it back to the canvas
         my_canvas.create_image(0,0, image=new_bg, anchor="nw")
         # Read the text
-        my_canvas.create_text(400, 100, text="ArdaCiti Coffee Machine", font=("Segoe Script", 40))
+        my_canvas.create_text(400, 100, text="ArdaCiti Cafe", font=("Segoe Script", 40))
         my_canvas.create_text(400, 150, text="Where Coffee Meets Tea, Harmony in Every Cup", font=("Segoe Script", 20) )
     root.bind('<Configure>', resizer)  
 
