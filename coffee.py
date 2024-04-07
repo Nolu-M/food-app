@@ -531,7 +531,7 @@ def create_main_menu():
                 speak("enjoy your tea")
             elif "chamomile" in user_speak:
                 speak("enjoy your tea")
-            elif "five roses" in user_speak:
+            elif "ceylon" in user_speak:
                 speak("enjoy your tea")
             elif "cinnamon" in user_speak:
                 speak("enjoy your tea")
@@ -552,7 +552,7 @@ def create_main_menu():
                 speak("enjoy your tea")
             elif "chamomile" in user_talk:
                 speak("enjoy your tea")
-            elif "five roses" in user_talk:
+            elif "ceylon" in user_talk:
                 speak("enjoy your tea")
             elif "cinnamon" in user_talk:
                 speak("enjoy your tea")
