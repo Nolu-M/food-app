@@ -52,7 +52,7 @@ def open_coffee_options(root, button1, button2, button3):
         # Add it back to the canvas
         my_canvas2.create_image(0,0, image=new_coffee_bg, anchor="nw")
         # Read the text
-        my_canvas2.create_text(400, 100, text="ArdaCiti Cafe", font=("Segoe Script", 40))
+        my_canvas2.create_text(400, 100, text="ArdaCiti Machine", font=("Segoe Script", 40))
         my_canvas2.create_text(400, 150, text="Where Coffee Meets Tea, Harmony in Every Cup", font=("Segoe Script", 20))
         # Add coffee options
         my_canvas2.create_image(50,250, image=cuppaccino, anchor="nw", tags="cuppaccino")
@@ -254,7 +254,7 @@ def open_tea_options(root, button1, button2, button3):
         # Add it back to the canvas
         my_canvas3.create_image(0,0, image=new_tea_bg, anchor="nw")
         # Read the text
-        my_canvas3.create_text(400, 100, text="ArdaCiti Cafe", font=("Segoe Script", 40))
+        my_canvas3.create_text(400, 100, text="ArdaCiti Machine", font=("Segoe Script", 40))
         my_canvas3.create_text(400, 150, text="Where Coffee Meets Tea, Harmony in Every Cup", font=("Segoe Script", 20))
         # Add images
         my_canvas3.create_image(50,250, image=rooibos, anchor="nw", tags="rooibos")
@@ -594,7 +594,7 @@ def create_main_menu():
     root = Tk()
     root.geometry("1600x900")
     root.iconbitmap('images/coffee_icon.ico')
-    root.title("ArdaCiTi Cafe")
+    root.title("ArdaCiTi Machine")
 
     # Define image
     bg = PhotoImage(file="images/c-beans.png")
@@ -628,7 +628,7 @@ def create_main_menu():
         # Add it back to the canvas
         my_canvas.create_image(0,0, image=new_bg, anchor="nw")
         # Read the text
-        my_canvas.create_text(400, 100, text="ArdaCiti Cafe", font=("Segoe Script", 40))
+        my_canvas.create_text(400, 100, text="ArdaCiti Machine", font=("Segoe Script", 40))
         my_canvas.create_text(400, 150, text="Where Coffee Meets Tea, Harmony in Every Cup", font=("Segoe Script", 20) )
     root.bind('<Configure>', resizer)  
 
