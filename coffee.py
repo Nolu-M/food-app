@@ -278,7 +278,7 @@ def open_tea_options(root, button1, button2, button3):
         popup = tk.Toplevel(root)
         popup.title("Customize Coffee")
 
-        global sugar_level, milk_level # Declare variables as global
+        global sugar_level, milk_level # Declare variables as global to see it incrementing and decrementing
 
         sugar_level = 0
         milk_level = 0
