@@ -35,7 +35,7 @@ def open_coffee_options(root, button1, button2, button3):
 
 
     # create a canvas
-    my_canvas2 = Canvas(coffee_frame, width=1366, height=768)
+    my_canvas2 = Canvas(coffee_frame, width=1600, height=900)
     my_canvas2.pack(fill="both", expand=True)
 
     my_canvas2.create_image(0,0, image=coffee_bg, anchor="nw")
@@ -236,7 +236,7 @@ def open_tea_options(root, button1, button2, button3):
 
    
     # create a canvas
-    my_canvas3 = Canvas(tea_frame, width=1366, height=768)
+    my_canvas3 = Canvas(tea_frame, width=1600, height=900)
     my_canvas3.pack(fill="both", expand=True)
     
 
