@@ -104,10 +104,11 @@ def open_coffee_options(root, button1, button2, button3):
             cup_label.config(text=f"Cup Size: {cup_size}")
 
         def confirm_order():
-            global sugar_level, milk_level, cup_size, coffee_order_count
-            order_name = f"{coffee_type} Order #{coffee_order_count}"
+            global sugar_level, milk_level, cup_size, coffee_order_count, order_name
+            order_name = f"{coffee_type}"
             order_details = {
                 'Name': order_name,
+                'Number': 1,
                 'Type': 'Coffee',
                 'Size': cup_size,
                 'Sugar_Level': sugar_level,
@@ -116,7 +117,7 @@ def open_coffee_options(root, button1, button2, button3):
             }
 
             with open('orders.csv', 'a', newline='') as csvfile:
-                fieldnames = ['Name', 'Type', 'Size', 'Sugar_Level', 'Milk_Level', 'Date']
+                fieldnames = ['Name', 'Number', 'Type', 'Size', 'Sugar_Level', 'Milk_Level', 'Date']
                 writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
                 writer.writerow(order_details)
 
@@ -320,9 +321,10 @@ def open_tea_options(root, button1, button2, button3):
 
         def confirm_order():
             global sugar_level, milk_level, cup_size, tea_order_count
-            order_name = f"{tea_type} Order #{tea_order_count}"
+            order_name = f"{tea_type}"
             order_details = {
                 'Name': order_name,
+                'Number': 1,
                 'Type': 'Tea',
                 'Size': cup_size,
                 'Sugar_Level': sugar_level,
@@ -331,7 +333,7 @@ def open_tea_options(root, button1, button2, button3):
             }
 
             with open('orders.csv', 'a', newline='') as csvfile:
-                fieldnames = ['Name', 'Type', 'Size', 'Sugar_Level', 'Milk_Level', 'Date']
+                fieldnames = ['Name', 'Number', 'Type', 'Size', 'Sugar_Level', 'Milk_Level', 'Date']
                 writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
                 writer.writerow(order_details)
 
