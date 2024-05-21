@@ -1,12 +1,6 @@
-Espresso,Coffee,Small,2,2,2024-05-20 17:50:45
-Cuppaccino,Coffee,Medium,1,1,2024-05-20 17:50:51
-Latte,Coffee,Medium,1,2,2024-05-20 17:54:57
-Americano,Coffee,Medium,2,1,2024-05-20 17:55:05
-Mocha,Coffee,Small,1,1,2024-05-20 17:55:11
-Espresso,Coffee,Medium,2,1,2024-05-20 17:55:18
-Cuppaccino,Coffee,Medium,3,2,2024-05-20 17:55:26
-Peppermint,Tea,Small,0,0,2024-05-20 17:56:36
-Greentea,Tea,Medium,0,0,2024-05-20 17:56:41
-Rooibos,Tea,Small,2,1,2024-05-20 17:56:45
-Ceylon,Tea,Medium,3,1,2024-05-20 17:57:04
-Cinnamon,Tea,Medium,2,1,2024-05-20 17:57:08
+Espresso Order #1,Coffee,Medium,1,1,2024-05-21 07:44:14
+Espresso Order #2,Coffee,Medium,1,1,2024-05-21 07:44:21
+Latte Order #3,Coffee,Medium,2,1,2024-05-21 07:44:53
+Peppermint Order #1,Tea,Small,0,0,2024-05-21 07:45:03
+Greentea Order #2,Tea,Medium,0,0,2024-05-21 07:45:08
+Ceylon Order #3,Tea,Large,3,2,2024-05-21 07:45:17

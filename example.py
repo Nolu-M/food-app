@@ -8,6 +8,14 @@ import tkinter as tk
 import csv
 from datetime import datetime
 
+
+# Initialize counters globally
+coffee_order_count = 0
+tea_order_count = 0
+sugar_level = 0
+milk_level = 0
+cup_size = "Small"
+
 def open_coffee_options(root, button1, button2, button3):
     global coffee_frame
 
@@ -59,8 +67,11 @@ def open_coffee_options(root, button1, button2, button3):
         popup = tk.Toplevel(root)
         popup.title("Customize Coffee")
 
-        global sugar_level, milk_level, cup_size
-
+        global sugar_level, milk_level, cup_size, coffee_order_count
+        
+        #incrementing coffee order count
+        coffee_order_count += 1
+       
         sugar_level = 0
         milk_level = 0
         cup_size = "Small"
@@ -93,9 +104,10 @@ def open_coffee_options(root, button1, button2, button3):
             cup_label.config(text=f"Cup Size: {cup_size}")
 
         def confirm_order():
-            global sugar_level, milk_level, cup_size
+            global sugar_level, milk_level, cup_size, coffee_order_count
+            order_name = f"{coffee_type} Order #{coffee_order_count}"
             order_details = {
-                'Name': coffee_type,
+                'Name': order_name,
                 'Type': 'Coffee',
                 'Size': cup_size,
                 'Sugar_Level': sugar_level,
@@ -270,8 +282,11 @@ def open_tea_options(root, button1, button2, button3):
         popup = tk.Toplevel(root)
         popup.title("Customize Coffee")
 
-        global sugar_level, milk_level, cup_size # Declare variables as global to see it incrementing and decrementing
+        global sugar_level, milk_level, cup_size, tea_order_count # Declare variables as global to see it incrementing and decrementing
 
+        #incrementing tea order count
+        tea_order_count += 1 
+        
         sugar_level = 0
         milk_level = 0
         cup_size = "Small"  # Default cup size
@@ -304,9 +319,10 @@ def open_tea_options(root, button1, button2, button3):
             cup_label.config(text=f"Cup Size: {cup_size}")
 
         def confirm_order():
-            global sugar_level, milk_level, cup_size
+            global sugar_level, milk_level, cup_size, tea_order_count
+            order_name = f"{tea_type} Order #{tea_order_count}"
             order_details = {
-                'Name': tea_type,
+                'Name': order_name,
                 'Type': 'Tea',
                 'Size': cup_size,
                 'Sugar_Level': sugar_level,
