@@ -5,8 +5,16 @@ import speech_recognition as sr
 import pyttsx3
 import pyaudio
 import tkinter as tk
+import csv
+from datetime import datetime
 
 
+# Initialize counters globally
+coffee_order_count = 0
+tea_order_count = 0
+sugar_level = 0
+milk_level = 0
+cup_size = "Small"
 
 def open_coffee_options(root, button1, button2, button3):
     global coffee_frame
@@ -15,17 +23,13 @@ def open_coffee_options(root, button1, button2, button3):
         coffee_frame.destroy()
         root.deiconify()
 
-    # Hide the main menu buttons
     button1.grid_forget()
     button2.grid_forget()
     button3.grid_forget()
     
-    # Create a new frame for coffee options
     coffee_frame = Frame(root)
     coffee_frame.place(relx=0.5, rely=0.5, anchor="center")
-    # define images
     coffee_bg = PhotoImage(file="images/c-beans.png")
-    # coffee options
     cuppaccino = PhotoImage(file="images/cuppaccino.png").subsample(3)
     espresso = PhotoImage(file="images/espresso.png").subsample(3)
     latte = PhotoImage(file="images/latte.png").subsample(3)
@@ -33,35 +37,24 @@ def open_coffee_options(root, button1, button2, button3):
     mocha = PhotoImage(file="images/mocha.png").subsample(3)
     ameri = PhotoImage(file="images/ameri.png").subsample(3)
 
-
-    # create a canvas
     my_canvas2 = Canvas(coffee_frame, width=1600, height=900)
     my_canvas2.pack(fill="both", expand=True)
-
     my_canvas2.create_image(0,0, image=coffee_bg, anchor="nw")
     
-    # Add background image to the frame
     def resized(e):
         global coffee_bg, resized_coffee_bg, new_coffee_bg
-        # Open the image
         coffee_bg = Image.open("images/c-beans.png", )
-        # Resize the image
         resized_coffee_bg = coffee_bg.resize((1600, 900), Image.LANCZOS)
-        # Define image again
         new_coffee_bg = ImageTk.PhotoImage(resized_coffee_bg)
-        # Add it back to the canvas
         my_canvas2.create_image(0,0, image=new_coffee_bg, anchor="nw")
-        # Read the text
         my_canvas2.create_text(400, 100, text="ArdaCiti Machine", font=("Segoe Script", 40))
         my_canvas2.create_text(400, 150, text="Where Coffee Meets Tea, Harmony in Every Cup", font=("Segoe Script", 20))
-        # Add coffee options
         my_canvas2.create_image(50,250, image=cuppaccino, anchor="nw", tags="cuppaccino")
         my_canvas2.create_image(300,250, image=espresso, anchor="nw", tags="espresso")
         my_canvas2.create_image(600,205, image=latte, anchor="nw", tags="latte")
         my_canvas2.create_image(-25,500, image=macch, anchor="nw", tags="macch")
         my_canvas2.create_image(330,500, image=mocha, anchor="nw", tags="mocha")
         my_canvas2.create_image(550,500, image=ameri, anchor="nw", tags="ameri")
-        # Add text under each image
         my_canvas2.create_text(70, 430, text="Cuppaccino", font=("Arial", 14), anchor="nw")
         my_canvas2.create_text(350, 430, text="Espresso", font=("Arial", 14), anchor="nw")
         my_canvas2.create_text(650, 430, text="Latte", font=("Arial", 14), anchor="nw")
@@ -70,21 +63,19 @@ def open_coffee_options(root, button1, button2, button3):
         my_canvas2.create_text(635, 640, text="Americano", font=("Arial", 14), anchor="nw")
     root.bind('<Configure>', resized)
 
-
-
     def customize_coffee(coffee_type):
-        # Create a pop-up window
         popup = tk.Toplevel(root)
         popup.title("Customize Coffee")
 
-        global sugar_level, milk_level # Declare variables as global
-
+        global sugar_level, milk_level, cup_size, coffee_order_count
+        
+        #incrementing coffee order count
+        coffee_order_count += 1
+       
         sugar_level = 0
         milk_level = 0
-        cup_size = "Small"  # Default cup size
+        cup_size = "Small"
 
-
-        
         def increment_sugar():
             global sugar_level
             sugar_level += 1
@@ -113,13 +104,24 @@ def open_coffee_options(root, button1, button2, button3):
             cup_label.config(text=f"Cup Size: {cup_size}")
 
         def confirm_order():
-            # This function should handle the confirmation of the order
-            # For now, let's just print the chosen options
-            print("Sugar Level:", sugar_level)
-            print("Milk Level:", milk_level)
-            print("Cup Size:", cup_size)
+            global sugar_level, milk_level, cup_size, coffee_order_count
+            order_name = f"{coffee_type} Order #{coffee_order_count}"
+            order_details = {
+                'Name': order_name,
+                'Type': 'Coffee',
+                'Size': cup_size,
+                'Sugar_Level': sugar_level,
+                'Milk_Level': milk_level,
+                'Date': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            }
 
-            popup.destroy()  # Close the popup window
+            with open('orders.csv', 'a', newline='') as csvfile:
+                fieldnames = ['Name', 'Type', 'Size', 'Sugar_Level', 'Milk_Level', 'Date']
+                writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+                writer.writerow(order_details)
+
+            print("Order confirmed and saved to CSV.")
+            popup.destroy()
 
         sugar_frame = tk.Frame(popup)#, bg="white")
         sugar_frame.grid(row=0, column=0, padx=10, pady=10)
@@ -153,6 +155,7 @@ def open_coffee_options(root, button1, button2, button3):
         cup_label = tk.Label(cup_frame, text="Cup Size:")
         cup_label.grid(row=0, column=0, sticky="w", padx=5, pady=5)
 
+#Lindelani
         def update_cup_label(size):
             cup_label.config(text=f"Cup Size: {size}")
 
@@ -165,21 +168,22 @@ def open_coffee_options(root, button1, button2, button3):
         large_button = tk.Button(cup_frame, text="Large", command=lambda: (update_cup_size("Large"), update_cup_label("Large")))
         large_button.grid(row=0, column=3, padx=5, pady=5)
 
-        recognizer = sr.Recognizer()
-        engine = pyttsx3.init()
-
-        def speak(text):
-            engine.say(text)
-            engine.runAndWait()
-
-        def confirm_order(coffee_type):
-            speak(f"Enjoy your {coffee_type}")
-            popup.destroy()
-            coffee_frame.destroy()
-
-        confirm_button = tk.Button(popup, text="Confirm", command=lambda: confirm_order(coffee_type))
+        confirm_button = tk.Button(popup, text="Confirm", command=confirm_order)
         confirm_button.grid(row=4, column=0, padx=10, pady=10)
 
+        # recognizer = sr.Recognizer()
+        # engine = pyttsx3.init()
+
+        # def speak(text):
+        #     engine.say(text)
+        #     engine.runAndWait()
+
+        # def confirm_order(coffee_type):
+        #     speak(f"Enjoy your {coffee_type}")
+        #     popup.destroy()
+        #     coffee_frame.destroy()
+
+#Mtiza
 
     def on_click(event):
         # get clicked item
@@ -278,8 +282,11 @@ def open_tea_options(root, button1, button2, button3):
         popup = tk.Toplevel(root)
         popup.title("Customize Coffee")
 
-        global sugar_level, milk_level # Declare variables as global to see it incrementing and decrementing
+        global sugar_level, milk_level, cup_size, tea_order_count # Declare variables as global to see it incrementing and decrementing
 
+        #incrementing tea order count
+        tea_order_count += 1 
+        
         sugar_level = 0
         milk_level = 0
         cup_size = "Small"  # Default cup size
@@ -312,13 +319,33 @@ def open_tea_options(root, button1, button2, button3):
             cup_label.config(text=f"Cup Size: {cup_size}")
 
         def confirm_order():
-            # This function should handle the confirmation of the order
-            # For now, let's just print the chosen options
-            print("Sugar Level:", sugar_level)
-            print("Milk Level:", milk_level)
-            print("Cup Size:", cup_size)
+            global sugar_level, milk_level, cup_size, tea_order_count
+            order_name = f"{tea_type} Order #{tea_order_count}"
+            order_details = {
+                'Name': order_name,
+                'Type': 'Tea',
+                'Size': cup_size,
+                'Sugar_Level': sugar_level,
+                'Milk_Level': milk_level,
+                'Date': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            }
 
-            popup.destroy()  # Close the popup window
+            with open('orders.csv', 'a', newline='') as csvfile:
+                fieldnames = ['Name', 'Type', 'Size', 'Sugar_Level', 'Milk_Level', 'Date']
+                writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+                writer.writerow(order_details)
+
+            print("Order confirmed and saved to CSV.")
+            popup.destroy()
+
+        # def confirm_order():
+        #     # This function should handle the confirmation of the order
+        #     # For now, let's just print the chosen options
+        #     print("Sugar Level:", sugar_level)
+        #     print("Milk Level:", milk_level)
+        #     print("Cup Size:", cup_size)
+
+        #     popup.destroy()  # Close the popup window
 
         sugar_frame = tk.Frame(popup)#, bg="white")
         sugar_frame.grid(row=0, column=0, padx=10, pady=10)
@@ -352,6 +379,19 @@ def open_tea_options(root, button1, button2, button3):
         cup_label = tk.Label(cup_frame, text="Cup Size:")
         cup_label.grid(row=0, column=0, sticky="w", padx=5, pady=5)
 
+        # def update_cup_label(size):
+        #     cup_label.config(text=f"Cup Size: {size}")
+
+        # small_button = tk.Button(cup_frame, text="Small", command=lambda: (update_cup_size("Small"), update_cup_label("Small")))
+        # small_button.grid(row=0, column=1, padx=5, pady=5)
+
+        # medium_button = tk.Button(cup_frame, text="Medium", command=lambda: (update_cup_size("Medium"), update_cup_label("Medium")))
+        # medium_button.grid(row=0, column=2, padx=5, pady=5)
+
+        # large_button = tk.Button(cup_frame, text="Large", command=lambda: (update_cup_size("Large"), update_cup_label("Large")))
+        # large_button.grid(row=0, column=3, padx=5, pady=5)
+        
+# Lindelani
         def update_cup_label(size):
             cup_label.config(text=f"Cup Size: {size}")
 
@@ -364,21 +404,25 @@ def open_tea_options(root, button1, button2, button3):
         large_button = tk.Button(cup_frame, text="Large", command=lambda: (update_cup_size("Large"), update_cup_label("Large")))
         large_button.grid(row=0, column=3, padx=5, pady=5)
 
-        recognizer = sr.Recognizer()
-        engine = pyttsx3.init()
-
-        def speak(text):
-            engine.say(text)
-            engine.runAndWait()
-
-        def confirm_order(tea_type):
-            speak(f"Enjoy your {tea_type} tea")
-            popup.destroy()
-            tea_frame.destroy()
-
-
-        confirm_button = tk.Button(popup, text="Confirm", command=lambda: confirm_order(tea_type))
+        confirm_button = tk.Button(popup, text="Confirm", command=confirm_order)
         confirm_button.grid(row=4, column=0, padx=10, pady=10)
+
+#Mtiza
+        # recognizer = sr.Recognizer()
+        # engine = pyttsx3.init()
+
+        # def speak(text):
+        #     engine.say(text)
+        #     engine.runAndWait()
+
+        # def confirm_order(tea_type):
+        #     speak(f"Enjoy your {tea_type} tea")
+        #     popup.destroy()
+        #     tea_frame.destroy()
+
+
+        # confirm_button = tk.Button(popup, text="Confirm", command=lambda: confirm_order(tea_type))
+        # confirm_button.grid(row=4, column=0, padx=10, pady=10)
 
     def on_click(event):
         # get clicked item
@@ -635,4 +679,3 @@ def create_main_menu():
     root.mainloop()
 
 create_main_menu() 
-
