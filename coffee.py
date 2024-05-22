@@ -104,22 +104,52 @@ def open_coffee_options(root, button1, button2, button3):
             cup_label.config(text=f"Cup Size: {cup_size}")
 
         def confirm_order():
-            global sugar_level, milk_level, cup_size, coffee_order_count, order_name
-            order_name = f"{coffee_type}"
+            global sugar_level, milk_level, cup_size
+
+    # Create the order details
             order_details = {
-                'Name': order_name,
-                'Number': 1,
+                'Name': coffee_type,
                 'Type': 'Coffee',
-                'Size': cup_size,
+                'Cup_size': cup_size,
                 'Sugar_Level': sugar_level,
                 'Milk_Level': milk_level,
+                'Count': 1,
+                'Date': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            }
+            order_details2 = {
+                'Name': coffee_type,
+                'Type': 'Coffee',
+                'Cup_size': cup_size,
+                'Sugar_Level': sugar_level,
+                'Milk_Level': milk_level,
+                'Count': 1,
                 'Date': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             }
 
-            with open('orders.csv', 'a', newline='') as csvfile:
-                fieldnames = ['Name', 'Number', 'Type', 'Size', 'Sugar_Level', 'Milk_Level', 'Date']
+    # Append to Orders.csv
+            with open('Orders.csv', 'a', newline='') as csvfile:
+                fieldnames = ['Name','Type', 'Cup_size', 'Sugar_Level', 'Milk_Level', 'Count', 'Date']
                 writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+        # Check if the file is empty to write the header
+                csvfile.seek(0, 2)
+                if csvfile.tell() == 0:
+                    writer.writeheader()
+
                 writer.writerow(order_details)
+
+    # Append to Orders2.csv
+            with open('Coffee.csv', 'a', newline='') as csvfile:
+                fieldnames2 = ['Name', 'Type','Cup_size', 'Sugar_Level', 'Milk_Level', 'Count', 'Date']
+                writer2 = csv.DictWriter(csvfile, fieldnames=fieldnames2)
+
+        # Check if the file is empty to write the header
+                csvfile.seek(0, 2)
+                if csvfile.tell() == 0:
+                    writer2.writeheader()
+
+                writer2.writerow(order_details2)
+
 
             print("Order confirmed and saved to CSV.")
             popup.destroy()
@@ -319,23 +349,54 @@ def open_tea_options(root, button1, button2, button3):
             cup_size = size
             cup_label.config(text=f"Cup Size: {cup_size}")
 
+
+
         def confirm_order():
-            global sugar_level, milk_level, cup_size, tea_order_count
-            order_name = f"{tea_type}"
+            global sugar_level, milk_level, cup_size
+
+    # Create the order details
             order_details = {
-                'Name': order_name,
-                'Number': 1,
+                'Name': tea_type,
                 'Type': 'Tea',
-                'Size': cup_size,
+                'Cup_size': cup_size,
                 'Sugar_Level': sugar_level,
                 'Milk_Level': milk_level,
+                'Count': 1,
+                'Date': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            }
+            order_details2 = {
+                'Name': tea_type,
+                'Type': 'Tea',
+                'Cup_size': cup_size,
+                'Sugar_Level': sugar_level,
+                'Milk_Level': milk_level,
+                'Count': 1,
                 'Date': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             }
 
-            with open('orders.csv', 'a', newline='') as csvfile:
-                fieldnames = ['Name', 'Number', 'Type', 'Size', 'Sugar_Level', 'Milk_Level', 'Date']
+    # Append to Orders.csv
+            with open('Orders.csv', 'a', newline='') as csvfile:
+                fieldnames = ['Name','Type', 'Cup_size', 'Sugar_Level', 'Milk_Level', 'Count', 'Date']
                 writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+        # Check if the file is empty to write the header
+                csvfile.seek(0, 2)
+                if csvfile.tell() == 0:
+                    writer.writeheader()
+
                 writer.writerow(order_details)
+
+    # Append to Orders2.csv
+            with open('Tea.csv', 'a', newline='') as csvfile:
+                fieldnames2 = ['Name', 'Type','Cup_size', 'Sugar_Level', 'Milk_Level', 'Count', 'Date']
+                writer2 = csv.DictWriter(csvfile, fieldnames=fieldnames2)
+
+        # Check if the file is empty to write the header
+                csvfile.seek(0, 2)
+                if csvfile.tell() == 0:
+                    writer2.writeheader()
+
+                writer2.writerow(order_details2)
 
             print("Order confirmed and saved to CSV.")
             popup.destroy()
